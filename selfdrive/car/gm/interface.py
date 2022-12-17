@@ -48,7 +48,7 @@ class CarInterface(CarInterfaceBase):
     ret = CarInterfaceBase.get_std_params(candidate, fingerprint)
     ret.carName = "gm"
     ret.safetyConfigs = [get_safety_config(car.CarParams.SafetyModel.gm)]
-    ret.autoResumeSng = False
+    ret.autoResumeSng = True
 
     if candidate in EV_CAR:
       ret.transmissionType = TransmissionType.direct
@@ -67,7 +67,7 @@ class CarInterface(CarInterfaceBase):
       ret.radarOffCan = True  # no radar
       ret.pcmCruise = True
       ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
-      ret.minEnableSpeed = 5 * CV.KPH_TO_MS
+      ret.minEnableSpeed = -1 #5 * CV.KPH_TO_MS
 
       if experimental_long:
         ret.pcmCruise = False
@@ -125,6 +125,8 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kiV = [0.]
       ret.lateralTuning.pid.kf = 1.  # get_steer_feedforward_volt()
       ret.steerActuatorDelay = 0.2
+      ret.minEnableSpeed = -1 #5 * CV.KPH_TO_MS
+      ret.autoResumeSng = True
 
     elif candidate == CAR.MALIBU:
       ret.mass = 1496. + STD_CARGO_KG
