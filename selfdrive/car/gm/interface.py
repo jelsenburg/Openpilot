@@ -66,10 +66,10 @@ class CarInterface(CarInterfaceBase):
       ret.radarOffCan = True  # no radar
       ret.pcmCruise = True
       ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
-      ret.minEnableSpeed = 5 * CV.KPH_TO_MS
+      ret.minEnableSpeed = -2
 
       if experimental_long:
-        ret.pcmCruise = False
+        ret.pcmCruise = True
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 
@@ -88,7 +88,7 @@ class CarInterface(CarInterfaceBase):
       ret.radarOffCan = True
       ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
       # supports stop and go, but initial engage must (conservatively) be above 18mph
-      ret.minEnableSpeed = 18 * CV.MPH_TO_MS
+      ret.minEnableSpeed = -5
 
       # Tuning
       ret.longitudinalTuning.kpV = [2.4, 1.5]
@@ -124,6 +124,7 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kiV = [0.]
       ret.lateralTuning.pid.kf = 1.  # get_steer_feedforward_volt()
       ret.steerActuatorDelay = 0.2
+      ret.openpilotLongitudinalControl = True
       ret.autoResumeSng = True
       ret.radarOffCan = True
       ret.minEnableSpeed = -1
