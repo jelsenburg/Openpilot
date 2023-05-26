@@ -88,11 +88,11 @@ class CarInterface(CarInterfaceBase):
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
       ret.networkLocation = NetworkLocation.fwdCamera
-      ret.radarUnavailable = True  # no radar
+      ret.radarUnavailable = no radar # True
       ret.pcmCruise = True
       ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
-      ret.minEnableSpeed = 5 * CV.KPH_TO_MS
-      ret.minSteerSpeed = 10 * CV.KPH_TO_MS
+      ret.minEnableSpeed = -5 * CV.KPH_TO_MS
+      ret.minSteerSpeed = -1 * CV.KPH_TO_MS
 
       # Tuning for experimental long
       ret.longitudinalTuning.kpV = [2.0, 1.5]
@@ -149,6 +149,10 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kiV = [0.]
       ret.lateralTuning.pid.kf = 1.  # get_steer_feedforward_volt()
       ret.steerActuatorDelay = 0.2
+      ret.openpilotLongitudinalControl = True
+      ret.autoResumeSng = True
+      ret.minEnableSpeed = -1
+      ret.radarOffCan = True
 
     elif candidate == CAR.MALIBU:
       ret.mass = 1496. + STD_CARGO_KG
